@@ -1,31 +1,26 @@
+using Application.UseCases.Formulas;
+using Application.UseCases.Henches;
+using Application.UseCases.Items;
+using Application.UseCases.Maps;
 using Domain.Entities;
-using Domain.Repositories;
 
 namespace Api.Presentation.GraphQL;
 
 public class Query
 {
-    public async Task<IEnumerable<Hench>> GetHenches(IRepository<Hench> repository) =>
-        await repository.GetAllAsync(h => h.Maps);
+    public Task<IEnumerable<Hench>> GetHenches(GetAllHenchesUseCase useCase) => useCase.ExecuteAsync();
 
-    public async Task<Hench?> GetHench(Guid id, IRepository<Hench> repository) =>
-        await repository.GetByIdAsync(id, h => h.Maps);
+    public Task<Hench?> GetHench(Guid id, GetHenchByIdUseCase useCase) => useCase.ExecuteAsync(id);
 
-    public async Task<IEnumerable<Item>> GetItems(IRepository<Item> repository) =>
-        await repository.GetAllAsync();
+    public Task<IEnumerable<Item>> GetItems(GetAllItemsUseCase useCase) => useCase.ExecuteAsync();
 
-    public async Task<Item?> GetItem(Guid id, IRepository<Item> repository) =>
-        await repository.GetByIdAsync(id);
+    public Task<Item?> GetItem(Guid id, GetItemByIdUseCase useCase) => useCase.ExecuteAsync(id);
 
-    public async Task<IEnumerable<Formula>> GetFormulas(IRepository<Formula> repository) =>
-        await repository.GetAllAsync(f => f.SourceHench1!, f => f.SourceHench2!, f => f.TargetHench!);
+    public Task<IEnumerable<Formula>> GetFormulas(GetAllFormulasUseCase useCase) => useCase.ExecuteAsync();
 
-    public async Task<Formula?> GetFormula(Guid id, IRepository<Formula> repository) =>
-        await repository.GetByIdAsync(id, f => f.SourceHench1!, f => f.SourceHench2!, f => f.TargetHench!);
+    public Task<Formula?> GetFormula(Guid id, GetFormulaByIdUseCase useCase) => useCase.ExecuteAsync(id);
 
-    public async Task<IEnumerable<Map>> GetMaps(IRepository<Map> repository) =>
-        await repository.GetAllAsync(m => m.Henches);
+    public Task<IEnumerable<Map>> GetMaps(GetAllMapsUseCase useCase) => useCase.ExecuteAsync();
 
-    public async Task<Map?> GetMap(Guid id, IRepository<Map> repository) =>
-        await repository.GetByIdAsync(id, m => m.Henches);
+    public Task<Map?> GetMap(Guid id, GetMapByIdUseCase useCase) => useCase.ExecuteAsync(id);
 }

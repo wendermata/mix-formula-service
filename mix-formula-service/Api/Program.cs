@@ -5,6 +5,7 @@ using Domain.Repositories;
 using Infrastructure.Database;
 using Infrastructure.Repositories;
 using Api.Presentation.GraphQL;
+using Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Registrar os repositórios genéricos
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddApplication();
 
 // Configurar os serviços do GraphQL
 builder.Services

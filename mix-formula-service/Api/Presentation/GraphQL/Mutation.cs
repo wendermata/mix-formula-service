@@ -1,85 +1,27 @@
+using Application.UseCases.Formulas;
+using Application.UseCases.Henches;
+using Application.UseCases.Items;
+using Application.UseCases.Maps;
 using Domain.Entities;
 using Domain.Enums;
-using Domain.Repositories;
 
 namespace Api.Presentation.GraphQL;
 
 public class Mutation
 {
-    public async Task<Hench> CreateHench(
-        string name,
-        HenchType type,
-        int level,
-        IRepository<Hench> repository)
-    {
-        var hench = new Hench
-        {
-            Id = Guid.NewGuid(),
-            Name = name,
-            Type = type,
-            Level = level
-        };
+    public Task<Hench> CreateHench(string name, HenchType type, int level, CreateHenchUseCase useCase) => useCase.ExecuteAsync(name, type, level);
+    public Task<Hench?> UpdateHench(Guid id, string name, HenchType type, int level, UpdateHenchUseCase useCase) => useCase.ExecuteAsync(id, name, type, level);
+    public Task<bool> DeleteHench(Guid id, DeleteHenchUseCase useCase) => useCase.ExecuteAsync(id);
 
-        return await repository.AddAsync(hench);
-    }
+    public Task<Item> CreateItem(string name, string description, CreateItemUseCase useCase) => useCase.ExecuteAsync(name, description);
+    public Task<Item?> UpdateItem(Guid id, string name, string description, UpdateItemUseCase useCase) => useCase.ExecuteAsync(id, name, description);
+    public Task<bool> DeleteItem(Guid id, DeleteItemUseCase useCase) => useCase.ExecuteAsync(id);
 
-    public async Task<Item> CreateItem(
-        string name,
-        string description,
-        IRepository<Item> repository)
-    {
-        var item = new Item
-        {
-            Id = Guid.NewGuid(),
-            Name = name,
-            Description = description
-        };
+    public Task<Formula> CreateFormula(string name, Guid sourceHench1Id, Guid sourceHench2Id, Guid targetHenchId, double successRate, CreateFormulaUseCase useCase) => useCase.ExecuteAsync(name, sourceHench1Id, sourceHench2Id, targetHenchId, successRate);
+    public Task<Formula?> UpdateFormula(Guid id, string name, Guid sourceHench1Id, Guid sourceHench2Id, Guid targetHenchId, double successRate, UpdateFormulaUseCase useCase) => useCase.ExecuteAsync(id, name, sourceHench1Id, sourceHench2Id, targetHenchId, successRate);
+    public Task<bool> DeleteFormula(Guid id, DeleteFormulaUseCase useCase) => useCase.ExecuteAsync(id);
 
-        return await repository.AddAsync(item);
-    }
-
-    public async Task<Formula> CreateFormula(
-        string name,
-        Guid sourceHench1Id,
-        Guid sourceHench2Id,
-        Guid targetHenchId,
-        double successRate,
-        IRepository<Formula> repository)
-    {
-        var formula = new Formula
-        {
-            Id = Guid.NewGuid(),
-            Name = name,
-            SourceHench1Id = sourceHench1Id,
-            SourceHench2Id = sourceHench2Id,
-            TargetHenchId = targetHenchId,
-            SuccessRate = successRate
-        };
-
-        return await repository.AddAsync(formula);
-    }
-
-    public async Task<Map> CreateMap(
-        string name,
-        List<Guid> henchIds,
-        IRepository<Map> mapRepository,
-        IRepository<Hench> henchRepository)
-    {
-        var map = new Map
-        {
-            Id = Guid.NewGuid(),
-            Name = name
-        };
-
-        foreach (var henchId in henchIds)
-        {
-            var hench = await henchRepository.GetByIdAsync(henchId);
-            if (hench != null)
-            {
-                map.Henches.Add(hench);
-            }
-        }
-
-        return await mapRepository.AddAsync(map);
-    }
+    public Task<Map> CreateMap(string name, List<Guid> henchIds, CreateMapUseCase useCase) => useCase.ExecuteAsync(name, henchIds);
+    public Task<Map?> UpdateMap(Guid id, string name, List<Guid> henchIds, UpdateMapUseCase useCase) => useCase.ExecuteAsync(id, name, henchIds);
+    public Task<bool> DeleteMap(Guid id, DeleteMapUseCase useCase) => useCase.ExecuteAsync(id);
 }
