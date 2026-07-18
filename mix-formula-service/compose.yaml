@@ -1,0 +1,7 @@
+services:
+  mix-formula-service:
+    image: mix-formula-service
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+

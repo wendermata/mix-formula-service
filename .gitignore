@@ -1,0 +1,47 @@
+## Build outputs
+[Bb]in/
+[Oo]bj/
+[Pp]ublish/
+
+## IDE and tools configurations
+# Rider / IntelliJ / WebStorm
+.idea/
+*.sln.imap
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.useroptions
+
+# Docker / Container files
+.dockerignore
+!mix-formula-service/.dockerignore
+!mix-formula-service/Api/.dockerignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# EF Core / Database local migrations tools (optional, but clean)
+*.db
+*.sqlite
+
+# Local developer app secrets
+appsettings.Development.json
+appsettings.local.json
