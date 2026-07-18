@@ -4,7 +4,8 @@ using Domain.Enums;
 using Domain.Repositories;
 using Infrastructure.Database;
 using Infrastructure.Repositories;
-using Api.Presentation.GraphQL;
+using Api.Presentation.GraphQL.Queries;
+using Api.Presentation.GraphQL.Mutations;
 using Application;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,8 +25,14 @@ builder.Services.AddApplication();
 // Configurar os serviços do GraphQL
 builder.Services
     .AddGraphQLServer()
-    .AddQueryType<Query>()
-    .AddMutationType<Mutation>();
+    .AddQueryType<HenchQueries>()
+    .AddQueryType<ItemQueries>()
+    .AddQueryType<FormulaQueries>()
+    .AddQueryType<MapQueries>()
+    .AddMutationType<HenchMutations>()
+    .AddMutationType<ItemMutations>()
+    .AddMutationType<FormulaMutations>()
+    .AddMutationType<MapMutations>();
 
 var app = builder.Build();
 
