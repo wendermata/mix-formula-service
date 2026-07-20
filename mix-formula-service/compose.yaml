@@ -1,7 +1,25 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: senha123
+      POSTGRES_DB: formula-mix
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
   mix-formula-service:
     image: mix-formula-service
     build:
       context: .
       dockerfile: Api/Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=formula-mix;Username=admin;Password=senha123"
+
+volumes:
+  postgres-data:
 
