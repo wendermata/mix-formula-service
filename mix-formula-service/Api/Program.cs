@@ -11,5 +11,7 @@ builder.Services
 
 var app = builder.Build();
 
+app.Services.ApplyMigrations();
+
 app.MapGraphQL();
 app.Run();

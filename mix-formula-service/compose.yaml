@@ -11,6 +11,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   mix-formula-service:
+    container_name: mix-formula-service
     image: mix-formula-service
     build:
       context: .
@@ -18,7 +19,7 @@ services:
     depends_on:
       - postgres
     environment:
-      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=formula-mix;Username=admin;Password=senha123"
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=mix-formula;Username=admin;Password=senha123"
 
 volumes:
   postgres-data:

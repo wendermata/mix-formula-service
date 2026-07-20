@@ -4,6 +4,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Mutations;
 
+[ExtendObjectType("Mutation")]
 public class ItemMutations
 {
     public Task<Item> CreateItem(CreateItemInput input, [Service] CreateItemUseCase useCase) =>

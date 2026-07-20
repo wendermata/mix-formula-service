@@ -4,6 +4,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Mutations;
 
+[ExtendObjectType("Mutation")]
 public class HenchMutations
 {
     public Task<Hench> CreateHench(CreateHenchInput input, [Service] CreateHenchUseCase useCase) =>

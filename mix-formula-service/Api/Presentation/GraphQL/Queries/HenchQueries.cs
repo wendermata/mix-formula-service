@@ -3,6 +3,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Queries;
 
+[ExtendObjectType("Query")]
 public class HenchQueries
 {
     public Task<IEnumerable<Hench>> GetHenches([Service] GetAllHenchesUseCase useCase) =>

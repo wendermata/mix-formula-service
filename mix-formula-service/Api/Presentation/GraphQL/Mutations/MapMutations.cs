@@ -4,6 +4,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Mutations;
 
+[ExtendObjectType("Mutation")]
 public class MapMutations
 {
     public Task<Map> CreateMap(CreateMapInput input, [Service] CreateMapUseCase useCase) =>

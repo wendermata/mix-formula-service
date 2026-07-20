@@ -35,6 +35,20 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<Map>()
             .HasMany(m => m.Henches)
             .WithMany(h => h.Maps)
-            .UsingEntity(j => j.ToTable("MapHenches"));
+            .UsingEntity<Dictionary<string, object>>(
+                "MapHenches",
+                right => right.HasOne<Hench>()
+                    .WithMany()
+                    .HasForeignKey("HenchesId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                left => left.HasOne<Map>()
+                    .WithMany()
+                    .HasForeignKey("MapsId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                join =>
+                {
+                    join.HasKey("MapsId", "HenchesId");
+                    join.ToTable("MapHenches");
+                });
     }
 }

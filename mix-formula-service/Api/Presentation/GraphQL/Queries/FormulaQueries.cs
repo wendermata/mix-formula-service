@@ -3,6 +3,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Queries;
 
+[ExtendObjectType("Query")]
 public class FormulaQueries
 {
     public Task<IEnumerable<Formula>> GetFormulas([Service] GetAllFormulasUseCase useCase) =>

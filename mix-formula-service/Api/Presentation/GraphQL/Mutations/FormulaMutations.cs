@@ -4,6 +4,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Mutations;
 
+[ExtendObjectType("Mutation")]
 public class FormulaMutations
 {
     public Task<Formula> CreateFormula(CreateFormulaInput input, [Service] CreateFormulaUseCase useCase) =>

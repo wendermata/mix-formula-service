@@ -3,6 +3,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Queries;
 
+[ExtendObjectType("Query")]
 public class ItemQueries
 {
     public Task<IEnumerable<Item>> GetItems([Service] GetAllItemsUseCase useCase) =>

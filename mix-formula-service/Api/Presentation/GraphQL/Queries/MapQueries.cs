@@ -3,6 +3,7 @@ using Domain.Entities;
 
 namespace Api.Presentation.GraphQL.Queries;
 
+[ExtendObjectType("Query")]
 public class MapQueries
 {
     public Task<IEnumerable<Map>> GetMaps([Service] GetAllMapsUseCase useCase) =>

@@ -1,8 +1,6 @@
-using Application.Exceptions;
 using Api.Presentation.GraphQL.Mutations;
 using Api.Presentation.GraphQL.Queries;
-using HotChocolate;
-using Microsoft.Extensions.DependencyInjection;
+using Application.Exceptions;
 
 namespace Api;
 
@@ -12,14 +10,16 @@ public static class DependencyInjection
     {
         services
             .AddGraphQLServer()
-            .AddQueryType<HenchQueries>()
-            .AddQueryType<ItemQueries>()
-            .AddQueryType<FormulaQueries>()
-            .AddQueryType<MapQueries>()
-            .AddMutationType<HenchMutations>()
-            .AddMutationType<ItemMutations>()
-            .AddMutationType<FormulaMutations>()
-            .AddMutationType<MapMutations>()
+            .AddQueryType(d => d.Name("Query"))
+            .AddMutationType(d => d.Name("Mutation"))
+            .AddType<HenchQueries>()
+            .AddType<ItemQueries>()
+            .AddType<FormulaQueries>()
+            .AddType<MapQueries>()
+            .AddType<HenchMutations>()
+            .AddType<ItemMutations>()
+            .AddType<FormulaMutations>()
+            .AddType<MapMutations>()
             .AddErrorFilter(error =>
             {
                 if (error.Exception is NotFoundException notFoundException)
