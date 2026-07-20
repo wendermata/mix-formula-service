@@ -3,12 +3,8 @@ using Domain.Entities;
 
 namespace Infrastructure.Database;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-    {
-    }
-
     public DbSet<Hench> Henches => Set<Hench>();
     public DbSet<Item> Items => Set<Item>();
     public DbSet<Formula> Formulas => Set<Formula>();
