@@ -9,7 +9,7 @@ public class ItemMutations
     public Task<Item> CreateItem(CreateItemInput input, [Service] CreateItemUseCase useCase) =>
         useCase.ExecuteAsync(input.Name, input.Description);
 
-    public Task<Item?> UpdateItem(UpdateItemInput input, [Service] UpdateItemUseCase useCase) =>
+    public Task<Item> UpdateItem(UpdateItemInput input, [Service] UpdateItemUseCase useCase) =>
         useCase.ExecuteAsync(input.Id, input.Name, input.Description);
 
     public Task<bool> DeleteItem(Guid id, [Service] DeleteItemUseCase useCase) =>

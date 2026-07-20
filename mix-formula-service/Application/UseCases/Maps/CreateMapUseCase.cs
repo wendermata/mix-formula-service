@@ -8,23 +8,15 @@ public sealed class CreateMapUseCase(IRepository<Map> mapRepository, IRepository
 {
     public async Task<Map> ExecuteAsync(string name, IReadOnlyCollection<Guid> henchIds)
     {
-        try
+        logger.LogInformation("Creating map with name: {Name} and {HenchCount} henches", name, henchIds.Count);
+        var map = new Map { Id = Guid.NewGuid(), Name = name };
+        foreach (var id in henchIds.Distinct())
         {
-            logger.LogInformation("Creating map with name: {Name} and {HenchCount} henches", name, henchIds.Count);
-            var map = new Map { Id = Guid.NewGuid(), Name = name };
-            foreach (var id in henchIds.Distinct())
-            {
-                var hench = await henchRepository.GetByIdAsync(id);
-                if (hench is not null) map.Henches.Add(hench);
-            }
-            var result = await mapRepository.AddAsync(map);
-            logger.LogInformation("Map created successfully with id: {Id}", result.Id);
-            return result;
+            var hench = await henchRepository.GetByIdAsync(id);
+            if (hench is not null) map.Henches.Add(hench);
         }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error occurred while creating map with name: {Name}", name);
-            throw;
-        }
+        var result = await mapRepository.AddAsync(map);
+        logger.LogInformation("Map created successfully with id: {Id}", result.Id);
+        return result;
     }
 }

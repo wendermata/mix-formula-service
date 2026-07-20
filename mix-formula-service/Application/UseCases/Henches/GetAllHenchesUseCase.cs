@@ -8,15 +8,7 @@ public sealed class GetAllHenchesUseCase(IRepository<Hench> repository, ILogger<
 {
     public async Task<IEnumerable<Hench>> ExecuteAsync()
     {
-        try
-        {
-            logger.LogInformation("Fetching all henches");
-            return await repository.GetAllAsync(h => h.Maps);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error occurred while fetching all henches");
-            throw;
-        }
+        logger.LogInformation("Fetching all henches");
+        return await repository.GetAllAsync(h => h.Maps);
     }
 }

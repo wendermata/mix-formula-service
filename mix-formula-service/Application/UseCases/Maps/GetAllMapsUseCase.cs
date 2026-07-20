@@ -8,15 +8,7 @@ public sealed class GetAllMapsUseCase(IRepository<Map> repository, ILogger<GetAl
 {
     public async Task<IEnumerable<Map>> ExecuteAsync()
     {
-        try
-        {
-            logger.LogInformation("Fetching all maps");
-            return await repository.GetAllAsync(m => m.Henches);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error occurred while fetching all maps");
-            throw;
-        }
+        logger.LogInformation("Fetching all maps");
+        return await repository.GetAllAsync(m => m.Henches);
     }
 }

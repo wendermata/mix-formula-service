@@ -8,15 +8,7 @@ public sealed class GetAllItemsUseCase(IRepository<Item> repository, ILogger<Get
 {
     public async Task<IEnumerable<Item>> ExecuteAsync()
     {
-        try
-        {
-            logger.LogInformation("Fetching all items");
-            return await repository.GetAllAsync();
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error occurred while fetching all items");
-            throw;
-        }
+        logger.LogInformation("Fetching all items");
+        return await repository.GetAllAsync();
     }
 }

@@ -8,6 +8,6 @@ public class ItemQueries
     public Task<IEnumerable<Item>> GetItems([Service] GetAllItemsUseCase useCase) =>
         useCase.ExecuteAsync();
 
-    public Task<Item?> GetItem(Guid id, [Service] GetItemByIdUseCase useCase) =>
+    public Task<Item> GetItem(Guid id, [Service] GetItemByIdUseCase useCase) =>
         useCase.ExecuteAsync(id);
 }

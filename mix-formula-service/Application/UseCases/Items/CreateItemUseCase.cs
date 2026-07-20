@@ -8,17 +8,9 @@ public sealed class CreateItemUseCase(IRepository<Item> repository, ILogger<Crea
 {
     public async Task<Item> ExecuteAsync(string name, string description)
     {
-        try
-        {
-            logger.LogInformation("Creating item with name: {Name}", name);
-            var item = await repository.AddAsync(new Item { Id = Guid.NewGuid(), Name = name, Description = description });
-            logger.LogInformation("Item created successfully with id: {Id}", item.Id);
-            return item;
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error occurred while creating item with name: {Name}", name);
-            throw;
-        }
+        logger.LogInformation("Creating item with name: {Name}", name);
+        var item = await repository.AddAsync(new Item { Id = Guid.NewGuid(), Name = name, Description = description });
+        logger.LogInformation("Item created successfully with id: {Id}", item.Id);
+        return item;
     }
 }
