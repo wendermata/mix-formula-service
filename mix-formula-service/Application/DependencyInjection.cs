@@ -15,6 +15,7 @@ public static class DependencyInjection
         services.AddScoped<GetAllHenchesUseCase>();
         services.AddScoped<UpdateHenchUseCase>();
         services.AddScoped<DeleteHenchUseCase>();
+        services.AddScoped<DeduplicateHenchesUseCase>();
         services.AddScoped<CreateItemUseCase>();
         services.AddScoped<GetItemByIdUseCase>();
         services.AddScoped<GetAllItemsUseCase>();

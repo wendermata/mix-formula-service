@@ -15,4 +15,7 @@ public class HenchMutations
 
     public Task<bool> DeleteHench(Guid id, [Service] DeleteHenchUseCase useCase) =>
         useCase.ExecuteAsync(id);
+
+    public Task<int> DeduplicateHenches([Service] DeduplicateHenchesUseCase useCase) =>
+        useCase.ExecuteAsync();
 }
