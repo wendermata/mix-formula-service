@@ -1,3 +1,4 @@
+using Api.HealthChecks;
 using Api.Presentation.GraphQL.Mutations;
 using Api.Presentation.GraphQL.Queries;
 using Application.Exceptions;
@@ -8,6 +9,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApi(this IServiceCollection services)
     {
+        services
+            .AddHealthChecks()
+            .AddCheck<DbHealthCheck>("database");
+
         services
             .AddGraphQLServer()
             .AddQueryType(d => d.Name("Query"))

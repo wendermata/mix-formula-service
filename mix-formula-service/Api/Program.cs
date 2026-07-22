@@ -14,4 +14,5 @@ var app = builder.Build();
 app.Services.ApplyMigrations();
 
 app.MapGraphQL();
+app.MapHealthChecks("/health");
 app.Run();

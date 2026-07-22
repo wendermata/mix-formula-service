@@ -4,6 +4,7 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure;
 
@@ -26,8 +27,20 @@ public static class DependencyInjection
     public static IServiceProvider ApplyMigrations(this IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();
+        var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+        var logger = loggerFactory.CreateLogger("Infrastructure");
         var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        dbContext.Database.Migrate();
+
+        try
+        {
+            dbContext.Database.Migrate();
+            logger.LogInformation("Database migrations applied successfully.");
+        }
+        catch (Exception ex)
+        {
+            logger.LogWarning(ex, "Database is not available. Migrations were not applied. The application will continue, but database-dependent features may fail.");
+        }
+
         return serviceProvider;
     }
 }

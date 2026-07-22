@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using Domain.Repositories;
 using Infrastructure.Database;
-using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
