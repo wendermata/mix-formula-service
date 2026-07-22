@@ -16,9 +16,11 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet = context.Set<T>();
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
+    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _dbSet;
+        if (filter is not null)
+            query = query.Where(filter);
         foreach (var include in includes)
         {
             query = query.Include(include);

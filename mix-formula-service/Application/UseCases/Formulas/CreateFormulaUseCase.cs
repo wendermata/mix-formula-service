@@ -19,6 +19,6 @@ public sealed class CreateFormulaUseCase(IRepository<Formula> repository, ILogge
             SuccessRate = successRate
         });
         logger.LogInformation("Formula created successfully with id: {Id}", formula.Id);
-        return formula;
+        return await repository.GetByIdAsync(formula.Id, f => f.SourceHench1!, f => f.SourceHench2!, f => f.TargetHench!) ?? formula;
     }
 }

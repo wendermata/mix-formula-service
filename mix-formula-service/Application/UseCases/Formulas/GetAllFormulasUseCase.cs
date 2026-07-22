@@ -9,6 +9,6 @@ public sealed class GetAllFormulasUseCase(IRepository<Formula> repository, ILogg
     public async Task<IEnumerable<Formula>> ExecuteAsync()
     {
         logger.LogInformation("Fetching all formulas");
-        return await repository.GetAllAsync(f => f.SourceHench1!, f => f.SourceHench2!, f => f.TargetHench!);
+        return await repository.GetAllAsync(includes: [f => f.SourceHench1!, f => f.SourceHench2!, f => f.TargetHench!]);
     }
 }

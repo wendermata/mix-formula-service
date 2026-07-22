@@ -18,6 +18,6 @@ public sealed class UpdateFormulaUseCase(IRepository<Formula> repository, ILogge
         formula.SuccessRate = successRate;
         await repository.UpdateAsync(formula);
         logger.LogInformation("Formula with id: {Id} updated successfully", id);
-        return formula;
+        return await repository.GetByIdAsync(formula.Id, f => f.SourceHench1!, f => f.SourceHench2!, f => f.TargetHench!) ?? formula;
     }
 }
